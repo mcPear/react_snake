@@ -1,23 +1,6 @@
 import React from "react";
 class PlayArea extends React.Component {
 
-    constructor() {
-        super();
-        this.state = {
-            backgrounds: [
-                <img
-                    className="greenSnake"
-                    alt="fruit"
-                    src={require('/home/test/Git Repos/my-app/src/snake/greensnake.jpg')}
-                />,
-                <img
-                    className="greenSnake"
-                    alt="fruit"
-                    src={require('/home/test/Git Repos/my-app/src/snake/suprisedSnake.jpg')}
-                />]
-        };
-    }
-
     render() {
         const body = this.props.body;
         const imgs = [];
@@ -35,7 +18,10 @@ class PlayArea extends React.Component {
         }
         return (
             <div>
-                {this.state.backgrounds[this.props.backgroundIndex]}
+                <img
+                    className="greenSnake"
+                    src={this.props.reqSnakeImg}
+                />
                 <img
                     alt="fruit"
                     src={require('/home/test/Git Repos/my-app/src/snake/tru.png')}

@@ -15,7 +15,7 @@ class Game extends React.Component {
             len: 2,
             playAreaW: 1200,
             playAreaH: 600,
-            backgroundIndex: 0
+            reqSnakeImg: require('/home/test/Git Repos/my-app/src/snake/greensnake.jpg')
         };
         this.handleKeyPress = this.handleKeyPress.bind(this);
     }
@@ -59,17 +59,14 @@ class Game extends React.Component {
         if (!this.fruEaten(newBody[0].x, newBody[0].y)) {
             newBody.pop();
         }
-        console.log(newBody.length);
-        console.log(newBody);
-        this.setState({body: newBody});
         this.calcFru();
-        if (this.checkGameOver()) {
+        let reqSnakeImg = this.state.reqSnakeImg;
+        if (this.checkGameOver(newBody)) {
             clearInterval(this.state.intervalId);
-            this.setState({backgroundIndex: 1});
-            const newBody = this.state.body.slice();
+            reqSnakeImg = require('/home/test/Git Repos/my-app/src/snake/suprisedSnake.jpg');
             newBody.shift();
-            this.setState({body: newBody});
         }
+        this.setState({body: newBody, reqSnakeImg: reqSnakeImg});
     }
 
     componentDidMount() {
@@ -89,12 +86,11 @@ class Game extends React.Component {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    checkGameOver() {
-        const x = this.state.body[0].x;
-        const y = this.state.body[0].y;
+    checkGameOver(body) {
+        const x = body[0].x;
+        const y = body[0].y;
         const w = this.state.playAreaW;
         const h = this.state.playAreaH;
-        const step = this.state.step;
         return x >= h  || x < 0 || y >= w || y < 0;
     }
 
@@ -124,7 +120,7 @@ class Game extends React.Component {
                         leftVal={this.state.body[0].y}
                         fruTopVal={this.state.frux}
                         fruLeftVal={this.state.fruy}
-                        backgroundIndex={this.state.backgroundIndex}
+                        reqSnakeImg={this.state.reqSnakeImg}
                     />
                 </div>
                 <div>
